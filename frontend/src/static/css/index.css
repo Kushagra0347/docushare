@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: gladiora;
+  src: url('src/static/font/Gladiora Sans Serif Font/gladiora-regular.ttf');
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-quaternary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary bg-opacity-90 hover:bg-secondary transition-colors duration-200 ease-in-out;
+}
+
+/* Handle on hover */
+/* ::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+} */

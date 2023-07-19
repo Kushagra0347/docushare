@@ -3,10 +3,10 @@ function FileCard({ margin, topMargin = true }) {
     <div
       className={`h-60 w-[30%] bg-quinary ${margin ? 'mr-6' : 'mr-0'} ${
         topMargin ? 'mt-9' : 'mt-0'
-      } rounded-xl shadow-md`}
+      }  rounded-xl shadow-md`}
     >
       {/* Icon Section */}
-      <div className="h-2/4 bg-black rounded-t-xl"></div>
+      <div className="h-2/4 rounded-t-xl bg-black"></div>
 
       {/* FileName/FolderName Section - shows File/Folder Name along with DateCreated/No of Files */}
       <div className="px-5 py-3">
@@ -15,7 +15,7 @@ function FileCard({ margin, topMargin = true }) {
       </div>
 
       {/* Footer Section - Shows FileSize, Number of People Shared with  */}
-      <div className="bg-gray-400 bg-opacity-20 h-[20%] rounded-b-xl px-5 py-4">
+      <div className="h-[20%] rounded-b-xl bg-gray-400 bg-opacity-20 px-5 py-4">
         {/* FileSize */}
         <p className="font-bold">434 MB</p>
 

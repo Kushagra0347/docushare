@@ -1,0 +1,3 @@
+export const FILE_ADD_REQUEST = 'FILE_ADD_REQUEST'
+export const FILE_ADD_SUCCESS = 'FILE_ADD_SUCCESS'
+export const FILE_ADD_FAIL = 'FILE_ADD_FAIL'

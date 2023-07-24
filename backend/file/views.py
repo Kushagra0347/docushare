@@ -48,18 +48,18 @@ def getFilesUploadedByTheUser(request, id):
 	sortBy = request.GET.get('sortBy')
 
 	try:
-		if (id == 0):
+		if (id == 0):  # My cloud Files
 			file_obj = File.objects.filter(uploaded_by=user, shared=False, uploaded=True)
-		elif (id == 1):
+		elif (id == 1):  # Shared Files
 			file_obj = File.objects.filter(uploaded_by=user, shared=True, uploaded=False)
-		elif (id == 2):
+		elif (id == 2):  # All Files
 			file_obj = File.objects.filter(uploaded_by=user)
 		else:
 			raise Exception('Invalid Type of id provided in the api')
 
-		if sortBy == 0:
+		if sortBy == 0:  # Sort Alphabetically
 			file_obj.order_by('name')
-		else:
+		else:  # Sort by Date Added
 			file_obj.order_by('date_added')
 
 		serializer = FileSerializer(file_obj, many=True)

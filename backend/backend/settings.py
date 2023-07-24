@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['*']
 
 # Whitelist Origin Sites for CORS Policy
 CORS_ALLOWED_ORIGINS = [
+	'https://4d0b-103-215-251-209.ngrok-free.app',
 	'http://127.0.0.1:5173',
 	'https://127.0.0.1:3000',
 	'http://127.0.0.1:3000',

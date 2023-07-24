@@ -8,17 +8,18 @@
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
+  @apply rounded-xl;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  @apply bg-quaternary;
+  @apply rounded-xl bg-quaternary;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply bg-secondary bg-opacity-90 hover:bg-secondary transition-colors duration-200 ease-in-out;
+  @apply rounded-xl bg-secondary bg-opacity-90 transition-colors duration-200 ease-in-out hover:bg-secondary;
 }
 
 /* Handle on hover */

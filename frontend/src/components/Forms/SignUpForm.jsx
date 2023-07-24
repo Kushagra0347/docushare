@@ -25,7 +25,7 @@ function SignupForm() {
   }, [])
 
   return (
-    <form className="py-5 px-8 w-full" onSubmit={handleSubmit}>
+    <form className="w-full px-8 py-5" onSubmit={handleSubmit}>
       {error && <Message className="mb-5" message={error} variant={'error'} />}
 
       <div className="relative" data-te-input-wrapper-init>
@@ -81,7 +81,7 @@ function SignupForm() {
         data-te-ripple-init
         data-te-ripple-color="light"
         data-te-ripple-duration="1000ms"
-        className="flex items-center justify-center rounded bg-primary px-6 pb-2 pt-2.5 mt-6 font-medium hover:font-bold text-base uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition-all duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+        className="hover:bg-primary-600 focus:bg-primary-600 active:bg-primary-700 mt-6 flex items-center justify-center rounded bg-primary px-6 pb-2 pt-2.5 text-base font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition-all duration-150 ease-in-out hover:font-bold hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
       >
         {loading ? <Loader /> : 'Sign Up'}
       </button>

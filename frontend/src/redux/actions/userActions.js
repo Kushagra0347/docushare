@@ -9,6 +9,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../constants/user'
+import { FILE_DATA_RESET } from '../constants/file'
 
 const url = 'http://127.0.0.1:8000/user/'
 
@@ -25,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
     const { data } = await axios.post(
       url + 'login/',
       { email, password },
-      config
+      config,
     )
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
@@ -53,7 +54,7 @@ export const register = (f_name, email, password) => async (dispatch) => {
     const { data } = await axios.post(
       url + 'signup/',
       { f_name, email, password },
-      config
+      config,
     )
 
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data })
@@ -75,4 +76,5 @@ export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch({ type: USER_LOGOUT })
   dispatch({ type: USER_DETAILS_RESET })
+  dispatch({ type: FILE_DATA_RESET })
 }

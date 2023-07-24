@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
@@ -9,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Mine
-from .serializers import UserTokenSerializer, LoginSerializer
+from .serializers import RegisteredUserSerializer, LoginSerializer
 
 User = get_user_model()
 
@@ -25,7 +24,7 @@ def signup(request):
 
 	try:
 		user = User.objects.create(first_name=data['f_name'], email=data['email'], password=make_password(data['password']))
-		serializer = UserTokenSerializer(user, many=False)
+		serializer = RegisteredUserSerializer(user, many=False)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 	except Exception as e:
 		message = {'detail': 'User with this email already exists'}

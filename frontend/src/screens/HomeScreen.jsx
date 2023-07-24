@@ -1,53 +1,71 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Select, initTE } from 'tw-elements'
 import FileCard from '../components/FileCard'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Loader from '../components/Icons/Loader'
+import Message from '../components/Message'
+import { getFile, getFiles } from '../redux/actions/fileActions'
 
 function HomeScreen({ className }) {
-  const [style, setStyle] = useState('grid')
+  // const [style, setStyle] = useState('grid')
 
-  function handleStyle(event) {
-    if (event.target.name === 'gridBtn' && style !== 'grid') {
-      setStyle('grid')
-    } else if (event.target.name === 'listBtn' && style !== 'list') {
-      setStyle('list')
-    }
+  const dispatch = useDispatch()
+  const { loading, files, error } = useSelector((state) => state.getFiles)
+  const { fileInfo } = useSelector((state) => state.addFile)
+  const { message } = useSelector((state) => state.deleteFile)
+
+  // function handleStyle(event) {
+  //   if (event.target.name === 'gridBtn' && style !== 'grid') {
+  //     setStyle('grid')
+  //   } else if (event.target.name === 'listBtn' && style !== 'list') {
+  //     setStyle('list')
+  //   }
+  // }
+
+  function showFileInfo(id) {
+    dispatch(getFile(id))
   }
 
   useEffect(() => {
     initTE({ Select })
   }, [])
 
+  useEffect(() => {
+    dispatch(getFiles(0))
+  }, [fileInfo, message, dispatch])
+
   return (
     <div
-      className={`${className} pt-9 py-28 pl-14 pr-14 h-screen overflow-auto`}
+      className={`${className} h-screen overflow-auto py-28 pl-14 pr-14 pt-9`}
     >
       {/* Container of the top part */}
       <div className="flex items-center justify-between">
         {/* Heading and sort by container */}
         <div>
           {/* Heading */}
-          <h2 className="font-bold text-3xl mb-2">My Cloud</h2>
+          <h2 className="mb-2 text-3xl font-bold">My Cloud</h2>
 
           {/* Sort By Section */}
           <div>
             <select data-te-select-init data-te-select-auto-select="true">
               <option value="alpha">Alphabetical</option>
-              <option value="date_modified">Date Modified</option>
+              <option value="date_added">Date Added</option>
             </select>
             <label data-te-select-label-ref>Sort By</label>
           </div>
         </div>
 
         {/* Grid or List view Container */}
-        <div className="bg-quinary shadow-md rounded-2xl flex items-center justify-evenly w-16 h-[25px] p-4 relative">
+        {/* <div className="relative flex h-[25px] w-16 items-center justify-evenly rounded-2xl bg-quinary p-4 shadow-md">
           <button
             name="gridBtn"
             className={`${
               style === 'grid'
                 ? 'bg-primary text-quinary'
-                : 'hover:bg-secondary hover:text-quinary text-gray-400'
-            } rounded-2xl w-6 h-[25px] p-4 absolute left-0 text-center flex items-center justify-center cursor-pointer`}
+                : 'text-gray-400 hover:bg-secondary hover:text-quinary'
+            } absolute left-0 flex h-[25px] w-6 cursor-pointer items-center justify-center rounded-2xl p-4 text-center`}
             onClick={handleStyle}
           >
             <i className="fas fa-grid-2"></i>
@@ -57,24 +75,37 @@ function HomeScreen({ className }) {
             className={`${
               style == 'list'
                 ? 'bg-primary text-quinary'
-                : 'hover:bg-secondary hover:text-quinary text-gray-400'
-            } rounded-2xl w-6 h-[25px] p-4 absolute right-0 text-center flex items-center justify-center cursor-pointer`}
+                : 'text-gray-400 hover:bg-secondary hover:text-quinary'
+            } absolute right-0 flex h-[25px] w-6 cursor-pointer items-center justify-center rounded-2xl p-4 text-center`}
             onClick={handleStyle}
           >
             <i className="fas fa-pause rotate-90"></i>
           </button>
-        </div>
+        </div> */}
       </div>
 
-      <div className="flex items-start justify-evenly mt-4 flex-wrap">
+      <div className="mt-4 flex flex-wrap items-start justify-evenly">
         {/* Remove Background for every 3rd card in the grid */}
         {/* Add mt-6 after 3rd  card in the grid */}
-        <FileCard key={1} margin={true} topMargin={false} />
-        <FileCard key={2} margin={true} topMargin={false} />
-        <FileCard key={3} margin={false} topMargin={false} />
-        <FileCard key={4} margin={true} />
-        <FileCard key={5} margin={true} />
-        <FileCard key={6} margin={false} />
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message
+            variant={'error'}
+            message={error}
+            className={'mt-32 text-center text-4xl'}
+          />
+        ) : (
+          files?.map((file, idx) => (
+            <FileCard
+              onClick={() => showFileInfo(file.id)}
+              key={file.id}
+              margin={idx % 3 < 2 ? true : false}
+              topMargin={idx <= 2 ? false : true}
+              file={file}
+            />
+          ))
+        )}
       </div>
     </div>
   )

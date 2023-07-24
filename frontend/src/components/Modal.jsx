@@ -44,26 +44,14 @@ function CustomModal({ position, id, details }) {
             </button>
           </div>
 
-          <div className="relative flex-auto px-4" data-te-modal-body-ref>
+          <div
+            className="relative mb-2 flex-auto px-4 py-2"
+            data-te-modal-body-ref
+          >
             <FileUploadForm />
           </div>
 
-          <div className="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4 mt-5">
-            <button
-              type="button"
-              className="hover:shadow-md inline-block rounded bg-red-500 hover:bg-red-600 px-6 pb-2 pt-3 text-xs text-white font-medium hover:font-bold uppercase transition duration-150 ease-in-out focus:bg-red-600 focus:outline-none focus:ring-0 active:bg-red-600"
-              data-te-modal-dismiss
-            >
-              Close
-            </button>
-            <button
-              type="button"
-              className="ml-1 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium hover:font-bold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-200 ease-in-out hover:bg-blue-900 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-900 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-900 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-              data-te-modal-dismiss
-            >
-              Upload
-            </button>
-          </div>
+          {/* <div className="mt-5 flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4"></div> */}
         </div>
       </div>
     </div>

@@ -7,7 +7,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 User = get_user_model()
 
 
-class UserTokenSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ['id', 'first_name', 'last_name', 'email', 'dob', 'is_admin']
+
+
+
+class RegisteredUserSerializer(serializers.ModelSerializer):
 	token = serializers.SerializerMethodField(read_only=True)
 
 	@staticmethod
@@ -24,7 +31,7 @@ class LoginSerializer(TokenObtainPairSerializer):
 	def validate(self, attrs):
 		data = super().validate(attrs)
 
-		serialized_data = UserTokenSerializer(self.user).data
+		serialized_data = RegisteredUserSerializer(self.user).data
 
 		for key, value in serialized_data.items():
 			data[key] = value

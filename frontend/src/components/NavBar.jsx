@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout } from '../redux/actions/userActions'
+import { FILE_DATA_RESET } from '../redux/constants/file'
 
 function NavBar() {
   const [currPathName, setCurrentPathName] = useState(window.location.pathname)
@@ -14,12 +15,12 @@ function NavBar() {
       { id: 'm-2', icon: 'fas fa-share', name: 'Shared', to: '/shared' },
       { id: 'm-3', icon: 'fas fa-file', name: 'All Files', to: '/all-files' },
       { id: 'm-4', icon: 'fas fa-star', name: 'Favorites', to: '/favorites' },
-      {
-        id: 'm-5',
-        icon: 'fas fa-lock',
-        name: 'Private Files',
-        to: '/private-files',
-      },
+      // {
+      //   id: 'm-5',
+      //   icon: 'fas fa-lock',
+      //   name: 'Private Files',
+      //   to: '/private-files',
+      // },
       {
         id: 'm-6',
         icon: 'fas fa-trash',
@@ -28,13 +29,6 @@ function NavBar() {
       },
     ],
     footerLinks: [
-      {
-        id: 'f-1',
-        icon: 'fas fa-question',
-        name: 'Help & Support',
-        to: '/help',
-        onClick: () => handleLinkClick('/help'),
-      },
       {
         id: 'f-2',
         icon: 'fas fa-right-from-bracket',
@@ -45,12 +39,13 @@ function NavBar() {
   }
 
   const [currPathId, setCurrentPathId] = useState(
-    links.mainLinks.find((link) => link.to == pathName).id
+    links.mainLinks.find((link) => link.to == pathName).id,
   )
 
   function handleLinkClick(link) {
     setCurrentPathName(link.to)
     setCurrentPathId(link.id)
+    dispatch({type: FILE_DATA_RESET})
   }
 
   function handleClick(event) {
@@ -59,7 +54,7 @@ function NavBar() {
   }
 
   return (
-    <div className="w-1/5 min-h-screen bg-tertiary text-white">
+    <div className="min-h-screen w-1/5 bg-tertiary text-white">
       {/* Logo */}
       <div className="py-7">
         <h1 className="text-center text-4xl">Drive</h1>
@@ -67,35 +62,34 @@ function NavBar() {
 
       {/* Links */}
       <div className="mt-2 text-2xl">
-        {links.mainLinks.map((link) => (
+        {links.mainLinks.map((link, idx) => (
           <Link
-            key={link.id}
+            key={idx}
             to={link.to}
             onClick={() => handleLinkClick(link)}
-            className={`inline-block w-full py-3 rounded-2xl ${
+            className={`inline-block w-full rounded-2xl py-3 ${
               pathName === currPathName && link.id === currPathId
                 ? 'bg-primary hover:text-white'
                 : 'text-gray-400 hover:bg-primary hover:text-white'
             } transition-colors`}
           >
-            <i className={`${link.icon} text-lg w-1 mx-10`}></i>
+            <i className={`${link.icon} mx-10 w-1 text-lg`}></i>
             <span className="text-lg">{link.name}</span>
           </Link>
         ))}
       </div>
 
       {/* Footer Links */}
-      <div className="mt-9">
-        {links.footerLinks.map((link) => (
+      <div className="mt-9 flex h-[10rem] items-end">
+        {links.footerLinks.map((link, idx) => (
           <>
-            {/* {console.log(link.onClick)} */}
             <Link
-              key={link.id}
+              key={idx}
               to={link.to}
               onClick={link.onClick}
-              className="inline-block w-full py-3 rounded-2xl text-gray-400 hover:bg-primary hover:text-white transition-colors"
+              className="inline-block w-full rounded-2xl py-3 text-gray-400 transition-colors hover:bg-primary hover:text-white"
             >
-              <i className={`${link.icon} text-lg w-1 mx-10`}></i>
+              <i className={`${link.icon} mx-10 w-1 text-lg`}></i>
               <span className="text-lg">{link.name}</span>
             </Link>
           </>

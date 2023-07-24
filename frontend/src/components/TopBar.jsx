@@ -1,22 +1,25 @@
 // Mine
+import { useSelector } from 'react-redux'
+import AddButton from './Buttons/AddButton'
 import CustomModal from './Modal'
 
 function TopBar() {
+  const { files } = useSelector((state) => state.getFiles)
+
+  let totalSpaceUsed = 0
+  const GB = 1000 * 1000 * 1000
+
+  files && files.forEach((file) => (totalSpaceUsed += file.file_size))
+
+  totalSpaceUsed =
+    Math.round((totalSpaceUsed / GB + Number.EPSILON) * 100) / 100
+
   return (
-    <div className="flex items-center bg-quinary py-3 w-full shadow-sm relative">
+    <div className="relative flex w-full items-center bg-quinary py-3 shadow-sm">
       {/* Button */}
-      <div className="mr-60 ml-12">
-        <button
-          type="button"
-          data-te-toggle="modal"
-          data-te-target="#addFileModal"
-          className="w-fit flex items-center hover:text-secondary transition-colors"
-        >
-          <div className="h-[50px] w-[50px] mr-2 rounded-full bg-quaternary flex items-center justify-center">
-            <i className="fas fa-circle-plus text-primary text-2xl"></i>
-          </div>
-          <span className="font-bold">Add File</span>
-        </button>
+      <div className="ml-12 mr-60">
+        <AddButton variant={'primary'} label={'Add File'} />
+
         <CustomModal
           id="addFileModal"
           position="left"
@@ -25,22 +28,24 @@ function TopBar() {
       </div>
 
       {/* Storage Indicator(Optional) */}
-      <div className="flex items-center py-2 px-3 border-2 border-quaternary rounded-3xl mr-60">
-        <div>
-          <span className="px-2 text-primary">
-            <i className="fa-solid fa-circle-notch"></i>
-          </span>
-          <span className="text-primary font-bold mr-2">10/140 Gb</span>
-          <span className="font-bold"> Storage Usage</span>
-        </div>
+      <div className="mr-60 flex items-center rounded-3xl border-2 border-gray-300 border-opacity-25 px-3 py-2">
+        {/* <div> */}
+        <span className="pr-2 text-primary">
+          <i className="fa-solid fa-circle-notch"></i>
+        </span>
+        <span className="mr-2 font-bold text-primary">
+          {totalSpaceUsed}/140 Gb
+        </span>
+        <span className="font-bold"> Storage Usage</span>
+        {/* </div> */}
       </div>
 
       {/* Account/Settings/Notifications Section */}
       <div className="flex items-center">
-        <button className="bg-quaternary hover:bg-gray-100 transition-colors w-[50px] h-[50px] rounded-full flex items-center justify-center mr-2">
+        <button className="mr-2 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-quaternary transition-colors hover:bg-gray-100">
           <i className="fas fa-gear text-2xl" />
         </button>
-        <button className="bg-quaternary hover:bg-gray-100 transition-colors w-[50px] h-[50px] rounded-full flex items-center justify-center mr-4">
+        <button className="mr-4 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-quaternary transition-colors hover:bg-gray-100">
           {/* Placeholder */}
           {/* TODO:Image of the user has to be attested in real */}
           <i className="fas fa-user text-2xl" />

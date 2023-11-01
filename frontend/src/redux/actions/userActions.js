@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {
+  USERS_DETAIL_FAIL,
+  USERS_DETAIL_REQUEST,
+  USERS_DETAIL_SUCCESS,
   USER_DETAILS_RESET,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -74,7 +77,37 @@ export const register = (f_name, email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo')
+  localStorage.removeItem('all-files-sortBy')
+  localStorage.removeItem('my-cloud-sortBy')
+  localStorage.removeItem('shared-files-sortBy')
+  localStorage.removeItem('favorites-sortBy')
   dispatch({ type: USER_LOGOUT })
   dispatch({ type: USER_DETAILS_RESET })
   dispatch({ type: FILE_DATA_RESET })
+}
+
+export const getUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USERS_DETAIL_REQUEST })
+
+    const { userInfo } = getState().userLogin
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(url + 'all/', config)
+
+    dispatch({ type: USERS_DETAIL_SUCCESS, payload: data })
+    localStorage.setItem('usersList', JSON.stringify(data))
+  } catch (err) {
+    dispatch({
+      type: USERS_DETAIL_FAIL,
+      payload:
+        err.response && err.response.data.detail
+          ? err.response.data.detail
+          : err.message,
+    })
+  }
 }

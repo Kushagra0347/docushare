@@ -1,38 +1,52 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import { login, signup } from './redux/reducers/userReducers'
+import { getUsersReducer, login, signup } from './redux/reducers/userReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import {
   addFileReducer,
+  changeFileReducer,
   deleteFileReducer,
+  downloadFileReducer,
   getFileReducer,
   getFilesReducer,
+  shareFileReducer,
 } from './redux/reducers/fileReducers'
 
 const reducer = combineReducers({
   userLogin: login,
   userRegister: signup,
+  getUsers: getUsersReducer,
+
   addFile: addFileReducer,
   getFiles: getFilesReducer,
   getFile: getFileReducer,
+  changeFile: changeFileReducer,
+  shareFile: shareFileReducer,
   deleteFile: deleteFileReducer,
+  downloadFile: downloadFileReducer,
 })
 
-const userInfo = localStorage.getItem('userInfo')
-const userInfoFromStorage = userInfo ? JSON.parse(userInfo) : null
+const userInfoFromStorage = localStorage.getItem('userInfo')
+const userInfo = userInfoFromStorage ? JSON.parse(userInfoFromStorage) : null
 
-const files = localStorage.getItem('files')
-const filesFromStorage = files ? JSON.parse(files) : null
+const usersListFromStorage = localStorage.getItem('usersList')
+const usersList = usersListFromStorage ? JSON.parse(usersListFromStorage) : null
+
+const filesFromStorage = localStorage.getItem('files')
+const files = filesFromStorage ? JSON.parse(filesFromStorage) : null
 
 const middleware = [thunk]
 
 const initialState = {
   userLogin: {
-    userInfo: userInfoFromStorage,
+    userInfo: userInfo,
+  },
+  getUsers: {
+    users: usersList,
   },
   getFiles: {
-    files: filesFromStorage,
+    files: files,
   },
 }
 

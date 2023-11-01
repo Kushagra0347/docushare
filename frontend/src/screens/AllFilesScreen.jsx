@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Select, initTE } from 'tw-elements'
 import FileCard from '../components/FileCard'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,11 +10,15 @@ import { getFile, getFiles } from '../redux/actions/fileActions'
 
 function AllFilesScreen({ className }) {
   // const [style, setStyle] = useState('grid')
+  const [sortBy, setSortBy] = useState(
+    localStorage.getItem('all-files-sortBy') || 0,
+  )
 
   const dispatch = useDispatch()
   const { loading, files, error } = useSelector((state) => state.getFiles)
   const { fileInfo } = useSelector((state) => state.addFile)
   const { message } = useSelector((state) => state.deleteFile)
+  const { message: shareMessage } = useSelector((state) => state.shareFile)
 
   // function handleStyle(event) {
   //   if (event.target.name === 'gridBtn' && style !== 'grid') {
@@ -23,6 +27,11 @@ function AllFilesScreen({ className }) {
   //     setStyle('list')
   //   }
   // }
+
+  function handleSortByChange(event) {
+    setSortBy(event.target.value)
+    localStorage.setItem('all-files-sortBy', event.target.value)
+  }
 
   function showFileInfo(id) {
     dispatch(getFile(id))
@@ -33,8 +42,8 @@ function AllFilesScreen({ className }) {
   }, [])
 
   useEffect(() => {
-    dispatch(getFiles(2))
-  }, [fileInfo, message, dispatch])
+    dispatch(getFiles(2, sortBy))
+  }, [fileInfo, message, shareMessage, sortBy, dispatch])
 
   return (
     <div
@@ -49,9 +58,13 @@ function AllFilesScreen({ className }) {
 
           {/* Sort By Section */}
           <div>
-            <select data-te-select-init data-te-select-auto-select="true">
-              <option value="alpha">Alphabetical</option>
-              <option value="date_added">Date Added</option>
+            <select
+              data-te-select-init
+              value={sortBy}
+              onChange={handleSortByChange}
+            >
+              <option value={0}>Alphabetical</option>
+              <option value={1}>Date Added</option>
             </select>
             <label data-te-select-label-ref>Sort By</label>
           </div>
@@ -88,7 +101,7 @@ function AllFilesScreen({ className }) {
         {/* Remove Background for every 3rd card in the grid */}
         {/* Add mt-6 after 3rd  card in the grid */}
         {loading ? (
-          <Loader />
+          <Loader className={'mx-5 h-7 w-7 text-white'} />
         ) : error ? (
           <Message
             variant={'error'}

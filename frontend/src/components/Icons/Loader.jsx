@@ -1,7 +1,7 @@
-function Loader() {
+function Loader({ className }) {
   return (
     <svg
-      className="animate-spin mx-5 h-7 w-7 text-white"
+      className={`${className} animate-spin`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['*']
 
 # Whitelist Origin Sites for CORS Policy
 CORS_ALLOWED_ORIGINS = [
-	'https://4d0b-103-215-251-209.ngrok-free.app',
 	'http://127.0.0.1:5173',
 	'https://127.0.0.1:3000',
 	'http://127.0.0.1:3000',
@@ -185,7 +184,7 @@ DATETIME_FORMAT = '%d-%m-%Y %H:%M'
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

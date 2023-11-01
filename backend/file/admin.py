@@ -5,4 +5,4 @@ from .models import File
 # Register your models here.
 @admin.register(File)
 class FileAdmin(admin.ModelAdmin):
-	list_display = ['tags', 'name', 'file', 'uploaded', 'shared', 'date_added']
+	list_display = ['name', 'tags', 'file', 'uploaded', 'shared', 'date_added']

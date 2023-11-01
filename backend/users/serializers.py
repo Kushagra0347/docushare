@@ -10,8 +10,7 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
-		fields = ['id', 'first_name', 'last_name', 'email', 'dob', 'is_admin']
-
+		fields = ['id', 'first_name', 'last_name', 'email', 'dob']
 
 
 class RegisteredUserSerializer(serializers.ModelSerializer):
@@ -24,7 +23,7 @@ class RegisteredUserSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = User
-		fields = ['id', 'first_name', 'last_name', 'email', 'dob', 'is_admin', 'token']
+		fields = ['id', 'first_name', 'last_name', 'email', 'dob', 'avatar', 'token']
 
 
 class LoginSerializer(TokenObtainPairSerializer):

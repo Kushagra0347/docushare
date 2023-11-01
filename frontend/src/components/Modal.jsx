@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { Modal, Ripple, initTE } from 'tw-elements'
 import Cross from './Icons/Cross'
 import FileUploadForm from './Forms/FileUploadForm'
+import ShareFileForm from './Forms/ShareFileForm'
+import EditUserForm from './Forms/EditUserForm'
 
 function CustomModal({ position, id, details }) {
   useEffect(() => {
@@ -48,7 +50,15 @@ function CustomModal({ position, id, details }) {
             className="relative mb-2 flex-auto px-4 py-2"
             data-te-modal-body-ref
           >
-            <FileUploadForm />
+            {id === 'addFileModal' ? (
+              <FileUploadForm />
+            ) : id === 'shareFileModal' ? (
+              <ShareFileForm />
+            ) : id === 'editUserModal' ? (
+              <EditUserForm />
+            ) : (
+              <></>
+            )}
           </div>
 
           {/* <div className="mt-5 flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md p-4"></div> */}

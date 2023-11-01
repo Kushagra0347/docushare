@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Select, initTE } from 'tw-elements'
 import FileCard from '../components/FileCard'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Loader from '../components/Icons/Loader'
 import Message from '../components/Message'
-import { getFile, getFiles } from '../redux/actions/fileActions'
+import { getFiles } from '../redux/actions/fileActions'
 
 function HomeScreen({ className }) {
   // const [style, setStyle] = useState('grid')
+  const [sortBy, setSortBy] = useState(
+    localStorage.getItem('my-cloud-sortBy') || 0,
+  )
 
   const dispatch = useDispatch()
   const { loading, files, error } = useSelector((state) => state.getFiles)
@@ -24,8 +27,9 @@ function HomeScreen({ className }) {
   //   }
   // }
 
-  function showFileInfo(id) {
-    dispatch(getFile(id))
+  function handleSortByChange(event) {
+    setSortBy(event.target.value)
+    localStorage.setItem('my-cloud-sortBy', event.target.value)
   }
 
   useEffect(() => {
@@ -33,8 +37,8 @@ function HomeScreen({ className }) {
   }, [])
 
   useEffect(() => {
-    dispatch(getFiles(0))
-  }, [fileInfo, message, dispatch])
+    dispatch(getFiles(0, sortBy))
+  }, [fileInfo, message, sortBy, dispatch])
 
   return (
     <div
@@ -46,15 +50,24 @@ function HomeScreen({ className }) {
         <div>
           {/* Heading */}
           <h2 className="mb-2 text-3xl font-bold">My Cloud</h2>
-
           {/* Sort By Section */}
+          {/* {files.length > 1 ? ( */}
           <div>
-            <select data-te-select-init data-te-select-auto-select="true">
-              <option value="alpha">Alphabetical</option>
-              <option value="date_added">Date Added</option>
+            <select
+              data-te-select-init
+              data-te-select-auto-select="true"
+              onChange={handleSortByChange}
+              value={sortBy}
+            >
+              <option value={0}>Alphabetical</option>
+              <option value={1}>Date Added</option>
             </select>
             <label data-te-select-label-ref>Sort By</label>
           </div>
+          {/* ) */}
+          {/* : (
+            <></>
+          )} */}
         </div>
 
         {/* Grid or List view Container */}
@@ -88,7 +101,7 @@ function HomeScreen({ className }) {
         {/* Remove Background for every 3rd card in the grid */}
         {/* Add mt-6 after 3rd  card in the grid */}
         {loading ? (
-          <Loader />
+          <Loader className={'mx-5 h-7 w-7 text-white'} />
         ) : error ? (
           <Message
             variant={'error'}
@@ -98,7 +111,6 @@ function HomeScreen({ className }) {
         ) : (
           files?.map((file, idx) => (
             <FileCard
-              onClick={() => showFileInfo(file.id)}
               key={file.id}
               margin={idx % 3 < 2 ? true : false}
               topMargin={idx <= 2 ? false : true}

@@ -45,7 +45,7 @@ function NavBar() {
   function handleLinkClick(link) {
     setCurrentPathName(link.to)
     setCurrentPathId(link.id)
-    dispatch({type: FILE_DATA_RESET})
+    dispatch({ type: FILE_DATA_RESET })
   }
 
   function handleClick(event) {
@@ -82,17 +82,15 @@ function NavBar() {
       {/* Footer Links */}
       <div className="mt-9 flex h-[10rem] items-end">
         {links.footerLinks.map((link, idx) => (
-          <>
-            <Link
-              key={idx}
-              to={link.to}
-              onClick={link.onClick}
-              className="inline-block w-full rounded-2xl py-3 text-gray-400 transition-colors hover:bg-primary hover:text-white"
-            >
-              <i className={`${link.icon} mx-10 w-1 text-lg`}></i>
-              <span className="text-lg">{link.name}</span>
-            </Link>
-          </>
+          <Link
+            key={idx}
+            to={link.to}
+            onClick={link.onClick}
+            className="inline-block w-full rounded-2xl py-3 text-gray-400 transition-colors hover:bg-primary hover:text-white"
+          >
+            <i className={`${link.icon} mx-10 w-1 text-lg`}></i>
+            <span className="text-lg">{link.name}</span>
+          </Link>
         ))}
       </div>
     </div>

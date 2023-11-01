@@ -1,4 +1,7 @@
 import {
+  USERS_DETAIL_FAIL,
+  USERS_DETAIL_REQUEST,
+  USERS_DETAIL_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -41,6 +44,22 @@ export const signup = (state = {}, action) => {
     case USER_LOGOUT:
       return {}
 
+    default:
+      return state
+  }
+}
+
+export const getUsersReducer = (
+  state = { users: localStorage.getItem('usersList') },
+  action,
+) => {
+  switch (action.type) {
+    case USERS_DETAIL_REQUEST:
+      return { loading: true }
+    case USERS_DETAIL_SUCCESS:
+      return { login: false, users: action.payload }
+    case USERS_DETAIL_FAIL:
+      return { loading: false, error: action.payload }
     default:
       return state
   }

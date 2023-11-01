@@ -4,11 +4,12 @@ from django.contrib.auth.hashers import make_password
 # REST Framework
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Mine
-from .serializers import RegisteredUserSerializer, LoginSerializer
+from .serializers import RegisteredUserSerializer, LoginSerializer, UserSerializer
 
 User = get_user_model()
 
@@ -29,3 +30,23 @@ def signup(request):
 	except Exception as e:
 		message = {'detail': 'User with this email already exists'}
 		return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUsers(request):
+	try:
+		user = User.objects.all()
+
+		serializer = UserSerializer(user, many=True)
+
+		return Response(serializer.data, status=status.HTTP_200_OK)
+	except Exception as e:
+		message = {'detail': f'Something went wrong -> {e.args}'}
+		return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def editUser(request):
+	data = request.data

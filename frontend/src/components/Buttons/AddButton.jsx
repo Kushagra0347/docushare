@@ -1,9 +1,9 @@
-function AddButton({ variant, label }) {
+function AddButton({ variant, label, targetModalID}) {
   return (
     <button
       type="button"
       data-te-toggle="modal"
-      data-te-target="#addFileModal"
+      data-te-target={`#${targetModalID}`}
       className="group flex w-fit items-center transition-colors hover:text-secondary"
     >
       <div

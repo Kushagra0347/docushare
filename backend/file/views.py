@@ -58,7 +58,7 @@ def getFilesUploadedByTheUser(request, id):
 			file_obj = File.objects.filter(uploaded_by=user, uploaded=True)
 
 		elif (id == 1):  # Shared Files
-			file_obj = File.objects.filter(shared_with=user)
+			file_obj = File.objects.filter(shared=True)
 
 		elif (id == 2):  # All Files
 			file_obj = File.objects.filter(Q(uploaded_by=user) | Q(shared_with=user)).distinct()

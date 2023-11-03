@@ -16,7 +16,7 @@ function FileCard({ margin, topMargin = true, file }) {
     document: ['docx', 'doc', 'pdf'],
     excel: ['xlsx', 'xls', 'csv'],
     design: ['fig'],
-    code: ['cpp', 'c', 'js', 'py', 'java'],
+    code: ['cpp', 'c', 'js', 'py', 'java', 'json', 'html', 'css', 'ts'],
   }
   // for file.file = '/media/email_folder/file.ext -> ['', 'media', 'files', 'email_folder', 'file.ext'] -> file.ext -> ['file', 'ext'] -> ext[is what we are accessing]'
   const fileType = file.file ? file.file.split('/')[4].split('.')[1] : ''

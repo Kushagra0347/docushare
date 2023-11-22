@@ -46,10 +46,12 @@ def addFile(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-# id = 0 -> My Cloud Files => uploaded = true, shared = false files
-# id = 1 -> Shared Files => shared = true, uploaded = false files
-# id = 2 -> All Files => uploaded = true, shared = true files
 def getFilesUploadedByTheUser(request, id):
+	"""
+		id = 0 -> My Cloud Files => uploaded = true, shared = false files
+	  id = 1 -> Shared Files => shared = true, uploaded = false files
+	  id = 2 -> All Files => uploaded = true, shared = true files
+	"""
 	user = request.user
 	sortBy = int(request.GET.get('sortBy'))
 

@@ -36,7 +36,7 @@ function ShareFileForm() {
     !loading && (
       <form onSubmit={shareWithUsers}>
         <MultiSelect
-          items={usersList}
+          items={usersList === null ? [] : usersList}
           label={'Search users by email'}
           onChange={setUsersListToBeShared}
           limitTags={2}

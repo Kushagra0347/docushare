@@ -33,6 +33,8 @@ CORS_ALLOWED_ORIGINS = [
 	'http://127.0.0.1:5173',
 	'https://127.0.0.1:3000',
 	'http://127.0.0.1:3000',
+	'https://c40a-103-47-237-0.ngrok-free.app',
+	'https://docushare.vercel.app',
 	'https://localhost:3000',
 	'http://localhost:3000',
 ]

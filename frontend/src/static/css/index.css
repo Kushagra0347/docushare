@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: gladiora;
-  src: url('src/static/font/Gladiora Sans Serif Font/gladiora-regular.ttf');
+  src: url('../static/font/Gladiora Sans Serif Font/gladiora-regular.ttf');
 }
 
 ::-webkit-scrollbar {

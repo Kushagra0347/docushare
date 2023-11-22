@@ -57,7 +57,7 @@ function NavBar() {
     <div className="min-h-screen w-1/5 bg-tertiary text-white">
       {/* Logo */}
       <div className="py-7">
-        <h1 className="text-center text-4xl">Drive</h1>
+        <h1 className="text-center text-4xl">DocuShare</h1>
       </div>
 
       {/* Links */}

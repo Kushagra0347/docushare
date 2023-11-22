@@ -28,7 +28,7 @@ function FileInfo() {
     document: ['docx', 'doc', 'pdf'],
     excel: ['xlsx', 'xls', 'csv'],
     design: ['fig'],
-    code: ['cpp', 'c', 'js', 'py', 'java'],
+    code: ['cpp', 'c', 'js', 'py', 'java', 'json', 'html', 'css', 'ts'],
   }
   // for fileInfo.file = '/media/files/email_folder/file.ext -> ['', 'media', 'files', 'enail_folder', 'file.ext'] -> file.ext -> ['file', 'ext'] -> ext[is what we are accessing]'
   const fileType = fileInfo ? fileInfo.file.split('/')[4].split('.')[1] : ''

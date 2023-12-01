@@ -21,12 +21,12 @@ function NavBar() {
       //   name: 'Private Files',
       //   to: '/private-files',
       // },
-      {
-        id: 'm-6',
-        icon: 'fas fa-trash',
-        name: 'Deleted Files',
-        to: '/deleted-files',
-      },
+      // {
+      //   id: 'm-6',
+      //   icon: 'fas fa-trash',
+      //   name: 'Deleted Files',
+      //   to: '/deleted-files',
+      // },
     ],
     footerLinks: [
       {
@@ -54,14 +54,14 @@ function NavBar() {
   }
 
   return (
-    <div className="min-h-screen w-1/5 bg-tertiary text-white">
+    <div className="h-screen flex flex-col justify-between w-1/5 bg-tertiary text-white">
       {/* Logo */}
       <div className="py-7">
         <h1 className="text-center text-4xl">DocuShare</h1>
       </div>
 
       {/* Links */}
-      <div className="mt-2 text-2xl">
+      <div className="text-2xl h-3/5">
         {links.mainLinks.map((link, idx) => (
           <Link
             key={idx}
@@ -80,7 +80,7 @@ function NavBar() {
       </div>
 
       {/* Footer Links */}
-      <div className="mt-9 flex h-[10rem] items-end">
+      <div className="flex h-1/6 items-center">
         {links.footerLinks.map((link, idx) => (
           <Link
             key={idx}

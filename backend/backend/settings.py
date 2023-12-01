@@ -26,17 +26,17 @@ SECRET_KEY = 'django-insecure-#%g&9#u##9921hb9iu-0@&ae=0)==hut$y&7@h7bukp3!5(_mk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+	'127.0.0.1',
+	'localhost:5173',
+	'docushare.vercel.app',
+]
 
 # Whitelist Origin Sites for CORS Policy
 CORS_ALLOWED_ORIGINS = [
 	'http://127.0.0.1:5173',
-	'https://127.0.0.1:3000',
-	'http://127.0.0.1:3000',
-	'https://c40a-103-47-237-0.ngrok-free.app',
+	'http://localhost:5173',
 	'https://docushare.vercel.app',
-	'https://localhost:3000',
-	'http://localhost:3000',
 ]
 
 # Application definition

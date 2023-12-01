@@ -1,40 +1,70 @@
-import {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {Input, Ripple, initTE} from 'tw-elements';
-import Loader from '../Icons/Loader';
-import Message from '../Message';
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Input, Ripple, initTE } from 'tw-elements'
+import Loader from '../Icons/Loader'
+import Message from '../Message'
+import { editUser, getUser } from '../../redux/actions/userActions.js'
 
 function EditUserForm() {
-  //   const dispatch = useDispatch()
-  const {loading, userInfo, error} = useSelector((state) => state.userLogin);
+  const dispatch = useDispatch()
 
-  const [details, setDetails] = useState({
-    f_name: userInfo.first_name,
-    l_name: userInfo.last_name === null ? '' : userInfo.last_name,
-    email: userInfo.email,
-    dob: userInfo.dob === null ? '' : userInfo.dob,
-    avatar: userInfo.avatar === null ? '' : userInfo.avatar,
-  });
+  const { loading, userInfo, success, error } = useSelector(
+    (state) => state.editUser,
+  )
+  const {
+    loading: loginLoading,
+    userInfo: loginInfo,
+    error: loginError,
+  } = useSelector((state) => state.userLogin)
+
+  const [details, setDetails] = useState(
+    userInfo
+      ? {
+          f_name: userInfo.first_name,
+          l_name: userInfo.last_name === null ? '' : userInfo.last_name,
+          email: userInfo.email,
+          dob: userInfo.dob === null ? '' : userInfo.dob,
+        }
+      : {
+          f_name: loginInfo.first_name,
+          l_name: loginInfo.last_name === null ? '' : loginInfo.last_name,
+          email: loginInfo.email,
+          dob: loginInfo.dob === null ? '' : loginInfo.dob,
+        },
+  )
 
   async function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
+    await dispatch(editUser(details, loginInfo.id))
   }
 
   function handleChange(e) {
-    const id = e.target.id;
+    const id = e.target.id
 
     setDetails((details) => ({
       ...details,
       [id]: e.target.value,
-    }));
+    }))
   }
 
   useEffect(() => {
-    initTE({Input, Ripple});
-  }, []);
-  return (
+    initTE({ Input, Ripple })
+  }, [])
+
+  return loginLoading ? (
+    <Loader className={'mx-5 h-7 w-7 text-white'} />
+  ) : loginError ? (
+    <Message className="mb-5" message={loginError} variant={'error'} />
+  ) : details ? (
     <form className="relative w-full px-24" onSubmit={handleSubmit}>
-      {error && <Message className="mb-5" message={error} variant={'error'}/>}
+      {error && <Message className="mb-5" message={error} variant={'error'} />}
+      {success && (
+        <Message
+          className="mb-5"
+          message={'Profile Edited'}
+          variant={'success'}
+        />
+      )}
 
       {/* First Name */}
       <div className="relative mt-4" data-te-input-wrapper-init>
@@ -43,6 +73,7 @@ function EditUserForm() {
           className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
           value={details.f_name}
           onChange={handleChange}
+          required={true}
           id="f_name"
         />
         <label
@@ -108,10 +139,12 @@ function EditUserForm() {
         type="submit"
         className="mt-4 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-200 ease-in-out hover:bg-blue-900 hover:font-bold hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-900 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-900 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
       >
-        {loading ? <Loader className={'mx-5 h-7 w-7 text-white'}/> : 'Upload'}
+        {loading ? <Loader className={'mx-5 h-7 w-7 text-white'} /> : 'Upload'}
       </button>
     </form>
-  );
+  ) : (
+    <div>Fuck off</div>
+  )
 }
 
-export default EditUserForm;
+export default EditUserForm

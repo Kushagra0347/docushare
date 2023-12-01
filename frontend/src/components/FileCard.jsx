@@ -71,7 +71,7 @@ function FileCard({ margin, topMargin = true, file }) {
       {/* FileName/FolderName Section - shows File/Folder Name along with DateCreated/No of Files */}
       <div className="py-3 pl-5">
         <p className="truncate pr-5 font-bold">
-          {file.name ? file.name : 'file.file.split(' / ')[3]'}
+          {file.name ? file.name : file.file.split(' / ')[3]}
         </p>
         <div className="flex items-center">
           <sub className="my-3 mr-5 font-bold tracking-wide text-gray-500">
@@ -103,4 +103,4 @@ function FileCard({ margin, topMargin = true, file }) {
   )
 }
 
-export default FileCard
+export default FileCard;

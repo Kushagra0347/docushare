@@ -11,6 +11,12 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_EDIT_REQUEST,
+  USER_EDIT_FAIL,
+  USER_EDIT_SUCCESS,
+  USER_DETAIL_REQUEST,
+  USER_DETAIL_SUCCESS,
+  USER_DETAIL_FAIL,
 } from '../constants/user'
 import { FILE_DATA_RESET } from '../constants/file'
 
@@ -75,6 +81,34 @@ export const register = (f_name, email, password) => async (dispatch) => {
   }
 }
 
+export const editUser = (details, id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_EDIT_REQUEST })
+
+    const { userInfo } = getState().userLogin
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(url + `edit/${id}/`, details, config)
+
+    dispatch({ type: USER_EDIT_SUCCESS, payload: data })
+    localStorage.setItem('editUserInfo', JSON.stringify(data))
+  } catch (err) {
+    dispatch({
+      type: USER_EDIT_FAIL,
+      payload:
+        err.response && err.response.data.detail
+          ? err.response.data.detail
+          : err.message,
+    })
+  }
+}
+
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo')
   localStorage.removeItem('all-files-sortBy')
@@ -104,6 +138,31 @@ export const getUsers = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: USERS_DETAIL_FAIL,
+      payload:
+        err.response && err.response.data.detail
+          ? err.response.data.detail
+          : err.message,
+    })
+  }
+}
+
+export const getUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_DETAIL_REQUEST })
+
+    const { userInfo } = getState().userLogin
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(url + `${id}/`, config)
+
+    dispatch({ type: USER_DETAIL_SUCCESS, payload: data })
+  } catch (err) {
+    dispatch({
+      type: USER_DETAIL_FAIL,
       payload:
         err.response && err.response.data.detail
           ? err.response.data.detail

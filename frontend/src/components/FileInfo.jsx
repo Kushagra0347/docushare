@@ -63,7 +63,7 @@ function FileInfo() {
   useEffect(() => {}, [fileInfo, message])
 
   return (
-    <div className="flex h-[87.4vh] w-[25%] items-center justify-center overflow-y-auto bg-quinary shadow-md">
+    <div className="flex h-screen w-[25%] items-center justify-center overflow-y-auto bg-quinary shadow-md">
       {loading ? (
         <Loader className={'mx-5 h-7 w-7 text-white'} />
       ) : error ? (
@@ -77,7 +77,7 @@ function FileInfo() {
         </div>
       ) : fileInfo ? (
         // parent container
-        <div className="h-full w-full px-5 py-7">
+        <div className="h-full w-full px-5 pb-20 pt-7">
           {/* Thumbnail Image or Icon */}
           <div className="flex h-1/4 w-[98%] items-center justify-center rounded-2xl shadow-lg">
             {fileTypes.image.indexOf(fileType) > -1 ? (

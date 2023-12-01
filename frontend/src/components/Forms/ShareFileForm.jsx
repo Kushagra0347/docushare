@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Input, initTE } from 'tw-elements'
+import { Input, initTE, Ripple } from 'tw-elements'
 import { getUsers } from '../../redux/actions/userActions'
 
 // import TextField from '@mui/material/TextField'
@@ -17,7 +17,7 @@ function ShareFileForm() {
   const usersList =
     users && users.filter((user) => user.email != userInfo.email)
   const { fileInfo } = useSelector((state) => state.getFile)
-  
+
   function shareWithUsers(e) {
     e.preventDefault()
 
@@ -30,7 +30,7 @@ function ShareFileForm() {
   }, [dispatch])
 
   useEffect(() => {
-    initTE({ Input })
+    initTE({ Input, Ripple })
   }, [])
   return (
     !loading && (
@@ -56,4 +56,4 @@ function ShareFileForm() {
   )
 }
 
-export default ShareFileForm
+export default ShareFileForm;

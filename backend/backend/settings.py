@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
 	'127.0.0.1',
-	'localhost:5173',
+	'localhost',
 	'docushare.vercel.app',
 ]
 
@@ -142,8 +142,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
 	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': BASE_DIR / 'db.sqlite3',
+		'ENGINE': 'django.db.backends.postgresql',
+		'NAME': 'docushare',
+		'USER': 'postgres',
+		'PASSWORD': '0347',
+		'PORT': '5432'
 	}
 }
 

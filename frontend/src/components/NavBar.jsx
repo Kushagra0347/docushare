@@ -54,14 +54,16 @@ function NavBar() {
   }
 
   return (
-    <div className="h-screen flex flex-col justify-between w-1/5 bg-tertiary text-white">
+    <div className="flex h-screen w-1/5 flex-col justify-between bg-tertiary text-white">
       {/* Logo */}
       <div className="py-7">
-        <h1 className="text-center text-4xl">DocuShare</h1>
+        <Link to={'/'}>
+          <h1 className="text-center text-4xl">DocuShare</h1>
+        </Link>
       </div>
 
       {/* Links */}
-      <div className="text-2xl h-3/5">
+      <div className="h-3/5 text-2xl">
         {links.mainLinks.map((link, idx) => (
           <Link
             key={idx}

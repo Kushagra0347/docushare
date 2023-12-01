@@ -1,27 +1,27 @@
 // Mine
-import { useSelector } from 'react-redux'
-import AddButton from './Buttons/AddButton'
-import CustomModal from './Modal'
-import { BACKEND_URL } from '../main'
+import { useSelector } from "react-redux";
+import AddButton from "./Buttons/AddButton";
+import CustomModal from "./Modal";
+import { BACKEND_URL } from "../main";
 
 function TopBar() {
-  const { space_used } = useSelector((state) => state.getFiles)
-  const { userInfo } = useSelector((state) => state.userLogin)
+  const { space_used } = useSelector((state) => state.getFiles);
+  const { userInfo } = useSelector((state) => state.userLogin);
 
   return (
-    <div className="relative flex w-full items-center bg-quinary py-3 shadow-sm">
+    <div className="relative flex justify-between w-full items-center bg-quinary py-3 shadow-sm">
       {/* Button */}
       <div className="ml-12 mr-60">
         <AddButton
-          variant={'primary'}
-          label={'Add File'}
-          targetModalID={'addFileModal'}
+          variant={"primary"}
+          label={"Add File"}
+          targetModalID={"addFileModal"}
         />
 
         <CustomModal
           id="addFileModal"
           position="left"
-          details={{ title: 'Add File' }}
+          details={{ title: "Add File" }}
         />
       </div>
 
@@ -38,7 +38,8 @@ function TopBar() {
 
       {/* Account/Settings/Notifications Section */}
       <div className="flex items-center">
-        <button className="mr-2 flex h-14 w-14 items-center justify-center rounded-full bg-quaternary transition-colors hover:bg-gray-100">
+        <button
+          className="mr-2 flex h-14 w-14 items-center justify-center rounded-full bg-quaternary transition-colors hover:bg-gray-100">
           <i className="fas fa-search text-2xl" />
         </button>
 
@@ -57,17 +58,12 @@ function TopBar() {
                   src={BACKEND_URL + userInfo.avatar}
                   alt={userInfo.email}
                 />
-                <div className="absolute flex h-full w-full cursor-pointer items-center justify-center rounded-full opacity-60 transition duration-500 hover:bg-gray-200 group-hover:scale-[1.022]">
+                <div
+                  className="absolute flex h-full w-full cursor-pointer items-center justify-center rounded-full opacity-60 transition duration-500 hover:bg-gray-200 group-hover:scale-[1.022]">
                   <i className="fal fa-pen-nib hidden w-5 text-2xl group-hover:block"></i>
                 </div>
               </>
             ) : (
-              // <img
-              //   src={BACKEND_URL + userInfo.avatar}
-              //   alt={userInfo.email}
-              //   className="h-full w-full rounded-full object-cover transition-all group-hover:scale-110
-              //    group-hover:border-2 group-hover:border-secondary group-hover:border-opacity-80"
-              // />
               <i className="fas fa-user text-2xl" />
             )}
           </button>
@@ -75,12 +71,12 @@ function TopBar() {
           <CustomModal
             id="editUserModal"
             position="right"
-            details={{ title: 'Edit Profile' }}
+            details={{ title: "Edit Profile" }}
           />
         </>
       </div>
     </div>
-  )
+  );
 }
 
-export default TopBar
+export default TopBar;

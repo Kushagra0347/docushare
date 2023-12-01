@@ -18,7 +18,6 @@ class UserManager(BaseUserManager):
 
 	def create_superuser(self, email, password=None, **kwargs):
 		kwargs.setdefault('is_superuser', True)
-		kwargs.setdefault('is_admin', True)
 		kwargs.setdefault('is_staff', True)
 		kwargs.setdefault('is_active', True)
 
